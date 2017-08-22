@@ -49,8 +49,7 @@ public class Course {
 	    setCredits(credits);
 	    setInstructorId(instructorId);
 	    setMeetingDays(meetingDays);
-	    setStartTime(startTime);
-	    setEndTime(endTime);
+	    setCourseTime(startTime, endTime);
 	}
 	
 	/**
@@ -212,6 +211,38 @@ public class Course {
 		this.meetingDays = meetingDays;
 	}
 	/**
+	 * Sets the startTime and the endTime for the course
+	 * @param startTime
+	 * @param endTime
+	 */
+	public void setCourseTime(int startTime, int endTime) {
+		//Check that if meetingDays is "A", startTime and endTime are both zero
+		if (this.getMeetingDays().equals("A")) {
+			if (startTime != 0 && endTime != 0) {
+				throw new IllegalArgumentException();
+			}
+		}
+		//Check that the times are valid
+		if (startTime < 0 || startTime > 2359) {
+			throw new IllegalArgumentException();
+	    //Check that the minutes are between 0 and 59
+		} else if ((startTime % 100) < 0 || (startTime % 100) > 59) {
+			throw new IllegalArgumentException();
+		}
+		if (endTime < 0 || endTime > 2359) {
+			throw new IllegalArgumentException();
+		} else if ((endTime % 100) < 0 || (endTime % 100) > 59) {
+			throw new IllegalArgumentException();
+		}
+		//Check that the startTime is less than the endTime
+		if (startTime > endTime) {
+			throw new IllegalArgumentException();
+		}
+		//If all preconditions are met, set the fields with the input values
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+	/**
 	 * Gets the start time.
 	 * @return the startTime
 	 */
@@ -219,25 +250,11 @@ public class Course {
 		return startTime;
 	}
 	/**
-	 * Sets the start time.
-	 * @param startTime the startTime to set
-	 */
-	public void setStartTime(int startTime) {
-		this.startTime = startTime;
-	}
-	/**
 	 * Gets the end time.
 	 * @return the endTime
 	 */
 	public int getEndTime() {
 		return endTime;
-	}
-	/**
-	 * Sets the end time.
-	 * @param endTime the endTime to set
-	 */
-	public void setEndTime(int endTime) {
-		this.endTime = endTime;
 	}
     
 	/** Overridden hashCode() and equals() */
