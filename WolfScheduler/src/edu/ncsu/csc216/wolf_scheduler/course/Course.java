@@ -123,6 +123,10 @@ public class Course {
 	 * @param section the section to set
 	 */
 	public void setSection(String section) {
+		//Check that the input isn't null
+		if (section == null) {
+		    throw new IllegalArgumentException();	
+		}
 		//Check that the input is 3 characters long
 		if (section.length() != 3 ) {
 			throw new IllegalArgumentException();
