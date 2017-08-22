@@ -105,6 +105,10 @@ public class Course {
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
+		//Check that the input isn't null
+		if (title == null) {
+	        throw new IllegalArgumentException();
+	    }
 		this.title = title;
 	}
 	/**
@@ -119,6 +123,18 @@ public class Course {
 	 * @param section the section to set
 	 */
 	public void setSection(String section) {
+		//Check that the input is 3 characters long
+		if (section.length() != 3 ) {
+			throw new IllegalArgumentException();
+		}
+		//Check that all characters are digits
+		for (int i = 0; i < section.length(); i++) {
+			//Loop through the length of the string. If any char
+			//is not a digit, an exception is thrown
+			if (!Character.isDigit(section.charAt(i))) {
+				throw new IllegalArgumentException();
+			}
+		}
 		this.section = section;
 	}
 	/**
