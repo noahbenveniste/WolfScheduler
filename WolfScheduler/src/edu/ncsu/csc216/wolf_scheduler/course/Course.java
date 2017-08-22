@@ -76,10 +76,21 @@ public class Course {
 		return name;
 	}
 	/**
-	 * Sets the course's name.
-	 * @param name the name to set
+	 * Sets the Course's name.  If the name is null, has a length less than 4 or 
+     * greater than 6, an IllegalArgumentException is thrown.
+     * @param name the name to set
+     * @throws IllegalArgumentException if name is null or length is less than 4 or 
+     * greater than 6
 	 */
 	private void setName(String name) {
+		//First, check that the input isn't null
+		if (name == null) {
+	        throw new IllegalArgumentException();
+	    }
+		//Next, check that the input is of the correct length
+	    if (name.length() < 4 || name.length() > 6) {
+	        throw new IllegalArgumentException();
+	    }
 		this.name = name;
 	}
 	/**
