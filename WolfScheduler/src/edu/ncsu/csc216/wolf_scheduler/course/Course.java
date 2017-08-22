@@ -256,6 +256,54 @@ public class Course {
 	public int getEndTime() {
 		return endTime;
 	}
+	/**
+	 * Converts the startTime and endTime from military time to standard in the 
+	 * form of a string
+	 * @return a string representation of the course's meeting time
+	 */
+	public String getMeetingString() {
+		if (this.getMeetingDays().equals("A")) {
+			return "Arranged";
+		}
+	    int startHr = this.getStartTime() / 100;
+	    int startMin = this.getStartTime() % 100;
+	    int endHr = this.getEndTime() / 100;
+	    int endMin = this.getEndTime() % 100;
+	    String startMinStr = "";
+	    String endMinStr = "";
+	    String startStr = "";
+	    String endStr = "";
+	    
+	    //Check formatting of the number of minutes
+	    if (startMin < 10) {
+	    	startMinStr = "0" + startMin;
+	    } else {
+	    	startMinStr += startMin;
+	    }
+	    if (endMin < 10 ) {
+	    	endMinStr = "0" + endMin;
+	    } else {
+	    	endMinStr += endMin;
+	    }
+	    
+	    if (startHr >= 12) {
+	    	if (startHr > 12) {
+		    	startHr -= 12;
+		    }
+	    	startStr += startHr + ":" + startMinStr + "PM";
+	    } else {
+	    	startStr += startHr + ":" + startMinStr + "AM";
+	    }
+	    if (endHr >= 12) {
+	    	if (endHr > 12) {
+		    	endHr -= 12;
+		    }
+	    	endStr += endHr + ":" + endMinStr + "PM";
+	    } else {
+	    	endStr += endHr + ":" + endMinStr + "AM";
+	    }
+	    return this.getMeetingDays() + " "+ startStr + "-" + endStr;	
+	}
     
 	/** Overridden hashCode() and equals() */
 	
