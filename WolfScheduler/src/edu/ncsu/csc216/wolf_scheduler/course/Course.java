@@ -105,8 +105,8 @@ public class Course {
 	 * @param title the title to set
 	 */
 	public void setTitle(String title) {
-		//Check that the input isn't null
-		if (title == null) {
+		//Check that the input isn't null or an empty string
+		if (title == null || title == "") {
 	        throw new IllegalArgumentException();
 	    }
 		this.title = title;
@@ -153,6 +153,11 @@ public class Course {
 	 * @param credits the credits to set
 	 */
 	public void setCredits(int credits) {
+		//Check that the input is not less than 1 or greater
+		//than 5
+		if (credits < 1 || credits > 5) {
+			throw new IllegalArgumentException();
+		}
 		this.credits = credits;
 	}
 	/**
@@ -167,6 +172,10 @@ public class Course {
 	 * @param instructorId the instructorId to set
 	 */
 	public void setInstructorId(String instructorId) {
+		//Check that the input isn't null or an empty string
+		if (instructorId == null || instructorId == "") {
+			throw new IllegalArgumentException();
+		}
 		this.instructorId = instructorId;
 	}
 	/**
@@ -181,6 +190,25 @@ public class Course {
 	 * @param meetingDays the meetingDays to set
 	 */
 	public void setMeetingDays(String meetingDays) {
+		//Check that the input isn't null or an empty string
+		if (meetingDays == null || meetingDays == "") {
+			throw new IllegalArgumentException();
+		}
+		
+		//Check for invalid characters
+		for (int i = 0; i < meetingDays.length(); i++) {
+			if (meetingDays.charAt(i) != 'M' && meetingDays.charAt(i) != 'T' && 
+					meetingDays.charAt(i) != 'W' && meetingDays.charAt(i) != 'H' && 
+					meetingDays.charAt(i) != 'F' && meetingDays.charAt(i) != 'A') {
+				throw new IllegalArgumentException();
+			}
+			//Check that if the string is greater than 1 char, it doesn't
+			//contain 'A'
+			if (meetingDays.charAt(i) == 'A' && meetingDays.length() > 1) {
+				throw new IllegalArgumentException();
+			}
+		}
+		
 		this.meetingDays = meetingDays;
 	}
 	/**
