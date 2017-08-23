@@ -78,12 +78,15 @@ public class CourseRecordIO {
      * @throws IOException
      */
     public static void writeCourseRecords(String fileName, ArrayList<Course> courses) throws IOException {
+    	//Initalize printstream object to write to file
     	PrintStream fileWriter = new PrintStream(new File(fileName));
 
+    	//Index throught the arraylist, printing one course per line
     	for (int i = 0; i < courses.size(); i++) {
     	    fileWriter.println(courses.get(i).toString());
     	}
 
+    	//Once all courses have been printed into the file, close the printstream
     	fileWriter.close();
     }
 
