@@ -1,13 +1,8 @@
-/**
- * 
- */
 package edu.ncsu.csc216.wolf_scheduler.course;
 
 /**
  * Object class that represents a course
- * 
  * @author Noah Benveniste
- *
  */
 public class Course {
     
