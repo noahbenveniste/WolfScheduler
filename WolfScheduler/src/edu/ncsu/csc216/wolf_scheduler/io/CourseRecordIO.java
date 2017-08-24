@@ -7,13 +7,14 @@ import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 import edu.ncsu.csc216.wolf_scheduler.course.Course;
 
 /**
  * Reads Course records from text files.  Writes a set of CourseRecords to a file.
- * 
+ * @author Sarah Heckman
  * @author Noah Benveniste
  */
 public class CourseRecordIO {
@@ -29,7 +30,7 @@ public class CourseRecordIO {
 	public static ArrayList<Course> readCourseRecords(String fileName) throws FileNotFoundException {
 	    Scanner fileReader = new Scanner(new FileInputStream(fileName));
 	    
-	    //Generate the arraylist to contain the course objects
+	    //Generate the array list to contain the course objects
 	    ArrayList<Course> courses = new ArrayList<Course>();
 	    
 	    //Continue reading through the file while there are lines to read
@@ -63,12 +64,77 @@ public class CourseRecordIO {
     
     /**
      * Helper method that parses individual courses that are read in as lines from the input file
+     * and creates a course object
      * @param nextLine
-     * @return
+     * @return a course object containing the course data that was given to the method
+     * @throws IllegalArgumentException
      */
     private static Course readCourse(String nextLine) {
-		// TODO Auto-generated method stub
-		return null;
+    	//Create the scanner object
+    	Scanner lineReader = new Scanner(nextLine);
+    	//Specify the token delimiter
+    	lineReader.useDelimiter(",");
+    	
+    	//Initialize variables to store tokens
+    	String courseName = "";
+    	String courseTitle =  "";
+    	String sectionNum = "";
+    	int credits = 0;
+    	String id = "";
+    	String meetingDays = "";
+    	/**
+    	String startTimeString = "";
+    	String endTimeString = "";
+    	*/
+    	int startTime = 0;
+    	int endTime = 0;
+    	Course c = null;
+    	
+    	//First, try to read in the tokens from the string
+    	try {
+    		//The first element should be a STRING for the COURSE NAME
+    		courseName = lineReader.next();
+    		//The next element should be a STRING for the COURSE TITLE
+    		courseTitle = lineReader.next();
+    		//The next element should be a STRING for the SECTION NUMBER
+    		sectionNum = lineReader.next();
+    		//The next element should be an INTEGER for the NUMBER OF CREDIT HOURS
+    		credits = lineReader.nextInt();
+    		//The next element should be a STRING for the instructor's ID
+    		id = lineReader.next();
+    		//The next element should be a STRING for the MEETING DAYS
+    		meetingDays = lineReader.next();
+    		//Check first that the line contains more tokens
+    		if (lineReader.hasNext() ) {
+    			//The next element should be a INTEGER for the START TIME (assuming the time isn't arranged)	
+    			startTime = lineReader.nextInt();
+    			
+    			//The next element should be a INTEGER for the END TIME (assuming the time isn't arranged)
+    			endTime = lineReader.nextInt();
+    		}	
+    	} catch (NoSuchElementException e) {
+    		//If an exception is thrown while parsing the string,
+    		//close the scanner and then throw an IllegalArgumentException for 
+    		//readCourseRecords().
+    		lineReader.close();
+    		throw new IllegalArgumentException();
+    	}
+    	
+    	//Once all tokens have been read in, try to create the object
+    	try {
+    		//If the meeting days is A, call the constructor for an arranged course
+    		if (meetingDays.equals("A")) {
+    			c = new Course(courseName, courseTitle, sectionNum, credits, id, meetingDays);
+    		} else {
+    			c = new Course(courseName, courseTitle, sectionNum, credits, id, meetingDays, startTime, endTime);
+    		}
+    		
+    	} catch (IllegalArgumentException e) {
+    		lineReader.close();
+    		throw new IllegalArgumentException();
+    	}
+    	lineReader.close();
+    	return c;
 	}
 
 	/**
@@ -78,15 +144,15 @@ public class CourseRecordIO {
      * @throws IOException
      */
     public static void writeCourseRecords(String fileName, ArrayList<Course> courses) throws IOException {
-    	//Initalize printstream object to write to file
+    	//Initialize print stream object to write to file
     	PrintStream fileWriter = new PrintStream(new File(fileName));
 
-    	//Index throught the arraylist, printing one course per line
+    	//Index through the array list, printing one course per line
     	for (int i = 0; i < courses.size(); i++) {
     	    fileWriter.println(courses.get(i).toString());
     	}
 
-    	//Once all courses have been printed into the file, close the printstream
+    	//Once all courses have been printed into the file, close the print stream
     	fileWriter.close();
     }
 
