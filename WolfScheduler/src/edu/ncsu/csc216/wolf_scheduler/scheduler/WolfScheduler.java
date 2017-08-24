@@ -81,6 +81,7 @@ public class WolfScheduler {
 	
 	/**
 	 * Checks if a given course (identified by name and section) can be added to the schedule
+	 * and then adds it if allowed
 	 * @param name the name of the course
 	 * @param section the section for the course
 	 * @return true if it can be added (i.e. it is not already in the schedule), false if it 
@@ -95,21 +96,25 @@ public class WolfScheduler {
 		}
 		//Next, check that a course with the same name does not already exist in the schedule
 		for (int i = 0; i < this.schedule.size(); i++) {
-			//Check if the currently indexed course in the schedule has the same name and
-			//section as the input name and section
-			if (((this.schedule.get(i)).getName()).equals(name) && 
-					((this.schedule.get(i)).getSection()).equals(section)) {
+			//Check if the currently indexed course in the schedule has the same name as the input
+			if (((this.schedule.get(i)).getName()).equals(name)) {
 				//If true, throw an exception
-				throw new IllegalArgumentException();
+				throw new IllegalArgumentException("You are already enrolled in " + name);
 			}
 		}
+		//If the course passed the above two tests, add it to the schedule (the index of 
+		//the added element changes dynamically - if a course is being added to an empty
+		//schedule, the schedule size will be 0 and the course must be assigned to index
+		//0 etc)
+		this.schedule.add(this.schedule.size(), this.getCourseFromCatalog(name, section));
 		//If the loop executes without throwing an exception, the course does not already
 		//exist in the schedule
 		return true;
 	}
 	
 	/**
-	 * Checks if a given course can be removed from the student's schedule
+	 * Checks if a given course can be removed from the student's schedule and then removes
+	 * it if allowed
 	 * @param name the name of the course
 	 * @param section the section for the course
 	 * @return true if the course can be removed (i.e. it is in the schedule), false if it
@@ -121,7 +126,8 @@ public class WolfScheduler {
 			//section as the input name and section
 			if (((this.schedule.get(i)).getName()).equals(name) && 
 					((this.schedule.get(i)).getSection()).equals(section)) {
-				//If true, return true
+				//If true, remove the course and then return true
+				this.schedule.remove(this.getCourseFromCatalog(name, section));
 				return true;
 			}
 		}
@@ -162,11 +168,11 @@ public class WolfScheduler {
 		//and then add it to the array in the proper index
 		for (int i = 0; i < numRow; i++) {
 			//Add the course name
-			catStr[i][1] = (this.courseCatalog.get(i)).getName();
+			catStr[i][0] = (this.courseCatalog.get(i)).getName();
 			//Add the course section
-			catStr[i][2] = (this.courseCatalog.get(i)).getSection();
+			catStr[i][1] = (this.courseCatalog.get(i)).getSection();
 			//Add the course title
-			catStr[i][3] = (this.courseCatalog.get(i)).getTitle();
+			catStr[i][2] = (this.courseCatalog.get(i)).getTitle();
 			//Next iteration of loop adds data for next course in the catalog in the
 			//next row of the array
 		}
@@ -194,11 +200,11 @@ public class WolfScheduler {
 		//and then add it to the array in the proper index
 		for (int i = 0; i < numRow; i++) {
 			//Add the course name
-			schedStr[i][1] = (this.schedule.get(i)).getName();
+			schedStr[i][0] = (this.schedule.get(i)).getName();
 			//Add the course section
-			schedStr[i][2] = (this.schedule.get(i)).getSection();
+			schedStr[i][1] = (this.schedule.get(i)).getSection();
 			//Add the course title
-			schedStr[i][3] = (this.schedule.get(i)).getTitle();
+			schedStr[i][2] = (this.schedule.get(i)).getTitle();
 			//Next iteration of loop adds data for next course in the catalog in the
 			//next row of the array
 		}
@@ -226,18 +232,18 @@ public class WolfScheduler {
 		//and then add it to the array in the proper index
 		for (int i = 0; i < numRow; i++) {
 			//Add the course name
-			fullSchedStr[i][1] = (this.schedule.get(i)).getName();
+			fullSchedStr[i][0] = (this.schedule.get(i)).getName();
 			//Add the course section
-			fullSchedStr[i][2] = (this.schedule.get(i)).getSection();
+			fullSchedStr[i][1] = (this.schedule.get(i)).getSection();
 			//Add the course title
-			fullSchedStr[i][3] = (this.schedule.get(i)).getTitle();
+			fullSchedStr[i][2] = (this.schedule.get(i)).getTitle();
 			//Add the credits (make sure to concatenate the returned int to a string
 			//before attempting to add it to the array)
-			fullSchedStr[i][4] = "" + (this.schedule.get(i)).getCredits();
+			fullSchedStr[i][3] = "" + (this.schedule.get(i)).getCredits();
 			//Add the instructorId
-			fullSchedStr[i][5] = (this.schedule.get(i)).getInstructorId();
+			fullSchedStr[i][4] = (this.schedule.get(i)).getInstructorId();
 			//Add the meetingDays
-			fullSchedStr[i][6] = (this.schedule.get(i)).getMeetingDays();
+			fullSchedStr[i][5] = (this.schedule.get(i)).getMeetingString();
 			//Next iteration of loop adds data for next course in the catalog in the
 			//next row of the array
 		}
