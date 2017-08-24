@@ -14,8 +14,8 @@ import edu.ncsu.csc216.wolf_scheduler.course.Course;
 
 /**
  * Reads Course records from text files.  Writes a set of CourseRecords to a file.
- * @author Sarah Heckman
  * @author Noah Benveniste
+ * @author Sarah Heckman
  */
 public class CourseRecordIO {
 
