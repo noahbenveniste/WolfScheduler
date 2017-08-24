@@ -124,7 +124,7 @@ public class CourseRecordIO {
     	//Once all tokens have been read in, try to create the object
     	try {
     		//If the meeting days is A, call the constructor for an arranged course
-    		if (meetingDays.equals("A")) {
+    		if (meetingDays.equals("A") && startTime == 0 && endTime == 0) {
     			c = new Course(courseName, courseTitle, sectionNum, credits, id, meetingDays);
     		} else {
     			c = new Course(courseName, courseTitle, sectionNum, credits, id, meetingDays, startTime, endTime);
