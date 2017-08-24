@@ -67,7 +67,8 @@ public class CourseRecordIO {
      * and creates a course object
      * @param nextLine
      * @return a course object containing the course data that was given to the method
-     * @throws IllegalArgumentException
+     * @throws IllegalArgumentException if the string cannot be read or the string contains
+     * invalid data and the object cannot be created
      */
     private static Course readCourse(String nextLine) {
     	//Create the scanner object

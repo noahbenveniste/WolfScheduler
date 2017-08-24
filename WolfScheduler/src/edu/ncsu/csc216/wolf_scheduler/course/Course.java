@@ -90,6 +90,7 @@ public class Course {
 	    }
 		this.name = name;
 	}
+	
 	/**
 	 * Gets the course's title.
 	 * @return the title
@@ -100,14 +101,16 @@ public class Course {
 	/**
 	 * Sets the course's title.
 	 * @param title the title to set
+	 * @throws IllegalArgumentException if the title is null or an empty string
 	 */
 	public void setTitle(String title) {
 		//Check that the input isn't null or an empty string
-		if (title == null || title == "") {
+		if (title == null || title.equals("")) {
 	        throw new IllegalArgumentException();
 	    }
 		this.title = title;
 	}
+	
 	/**
 	 * Gets the course's section.
 	 * @return the section
@@ -118,6 +121,7 @@ public class Course {
 	/**
 	 * Sets the course's section.
 	 * @param section the section to set
+	 * @throws IllegalArgumentException if the input is null, not of length 3, or not all digits
 	 */
 	public void setSection(String section) {
 		//Check that the input isn't null
@@ -138,6 +142,7 @@ public class Course {
 		}
 		this.section = section;
 	}
+	
 	/**
 	 * Gets the course's number of credits.
 	 * @return the credits
@@ -148,6 +153,8 @@ public class Course {
 	/**
 	 * Sets the course's number of credits.
 	 * @param credits the credits to set
+	 * @throws IllegalArgumentException if the number of credits is not between
+	 * 1 and 5 inclusive
 	 */
 	public void setCredits(int credits) {
 		//Check that the input is not less than 1 or greater
@@ -157,6 +164,7 @@ public class Course {
 		}
 		this.credits = credits;
 	}
+	
 	/**
 	 * Gets the instructor's unity id.
 	 * @return the instructorId
@@ -167,14 +175,16 @@ public class Course {
 	/**
 	 * Sets the instructor's unity id.
 	 * @param instructorId the instructorId to set
+	 * @throws IllegalArgumentException if the input is null or empty
 	 */
 	public void setInstructorId(String instructorId) {
 		//Check that the input isn't null or an empty string
-		if (instructorId == null || instructorId == "") {
+		if (instructorId == null || instructorId.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		this.instructorId = instructorId;
 	}
+	
 	/**
 	 * Gets the meeting days.
 	 * @return the meetingDays
@@ -185,10 +195,13 @@ public class Course {
 	/**
 	 * Sets the meeting days.
 	 * @param meetingDays the meetingDays to set
+	 * @throws IllegalArgumentException if the input is null or an empty string, if the 
+	 * input has characters other than m,t,w,h,f,a, if an input contains the character "A" 
+	 * with any other characters
 	 */
 	public void setMeetingDays(String meetingDays) {
 		//Check that the input isn't null or an empty string
-		if (meetingDays == null || meetingDays == "") {
+		if (meetingDays == null || meetingDays.equals("")) {
 			throw new IllegalArgumentException();
 		}
 		
@@ -208,10 +221,14 @@ public class Course {
 		
 		this.meetingDays = meetingDays;
 	}
+	
 	/**
 	 * Sets the startTime and the endTime for the course
 	 * @param startTime
 	 * @param endTime
+	 * @throws IllegalArgumentException if meetingDays is A and the start time and end time are
+	 * not both 0, if the start time and end time are not between 0 and 2359, if the minutes are
+	 * not between 0 and 59, or if the start time is greater than the end time
 	 */
 	public void setCourseTime(int startTime, int endTime) {
 		//Check that if meetingDays is "A", startTime and endTime are both zero
@@ -303,7 +320,7 @@ public class Course {
 	    return this.getMeetingDays() + " "+ startStr + "-" + endStr;	
 	}
     
-	/** Overridden hashCode() and equals() */
+	/** Overridden hashCode(), equals() and toString() */
 	
 	/**
 	 * Generates a hashCode for Course using all fields.
@@ -371,8 +388,6 @@ public class Course {
 			return false;
 		return true;
 	}
-	
-	/** Overridden toString() */
 	
 	/**
 	 * Returns a comma separated value String of all Course fields.
