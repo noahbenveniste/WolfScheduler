@@ -10,8 +10,14 @@
 			<arguments>
 			</arguments>
 		</buildCommand>
+		<buildCommand>
+			<name>com.github.spotbugs.plugin.eclipse.findbugsBuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
+		<nature>com.github.spotbugs.plugin.eclipse.findbugsNature</nature>
 	</natures>
 </projectDescription>

@@ -224,18 +224,16 @@ public class Course {
 	
 	/**
 	 * Sets the startTime and the endTime for the course
-	 * @param startTime
-	 * @param endTime
+	 * @param startTime the starting time of the course
+	 * @param endTime the ending time of the course
 	 * @throws IllegalArgumentException if meetingDays is A and the start time and end time are
 	 * not both 0, if the start time and end time are not between 0 and 2359, if the minutes are
 	 * not between 0 and 59, or if the start time is greater than the end time
 	 */
 	public void setCourseTime(int startTime, int endTime) {
 		//Check that if meetingDays is "A", startTime and endTime are both zero
-		if (this.getMeetingDays().equals("A")) {
-			if (startTime != 0 && endTime != 0) {
-				throw new IllegalArgumentException();
-			}
+		if (this.getMeetingDays().equals("A") && (startTime != 0 && endTime != 0)) {
+			throw new IllegalArgumentException();
 		}
 		//Check that the times are valid
 		if (startTime < 0 || startTime > 2359) {
@@ -317,7 +315,7 @@ public class Course {
 	    } else {
 	    	endStr += endHr + ":" + endMinStr + "AM";
 	    }
-	    return this.getMeetingDays() + " "+ startStr + "-" + endStr;	
+	    return this.getMeetingDays() + " " + startStr + "-" + endStr;	
 	}
     
 	/** Overridden hashCode(), equals() and toString() */

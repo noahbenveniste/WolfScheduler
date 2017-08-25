@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Scanner;
 
@@ -140,9 +139,9 @@ public class CourseRecordIO {
 
 	/**
      * Writes the given list of Courses to an output file
-     * @param fileName
-     * @param courses
-     * @throws IOException
+     * @param fileName the name of the file to be written to
+     * @param courses an array list of courses to be written to the file
+     * @throws IOException if the file cannot be saved
      */
     public static void writeCourseRecords(String fileName, ArrayList<Course> courses) throws IOException {
     	//Initialize print stream object to write to file
